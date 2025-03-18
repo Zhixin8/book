@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不断更新 - 高效能人士的七个习惯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 复用habit1.html的样式 */
+        :root {
+            --primary-color: #4A90E2;
+            --primary-dark: #357ABD;
+            --text-dark: #444444;
+            --text-light: #666666;
+            --bg-light: #F5F7FA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 8px rgba(0,0,0,0.05);
+            --shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* 复用habit1.html的所有样式 */
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .habit-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .habit-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .habit-title {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin: 0 0 1.5rem;
+        }
+
+        .habit-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .content-section:nth-child(2) { animation-delay: 0.2s; }
+        .content-section:nth-child(3) { animation-delay: 0.4s; }
+        .content-section:nth-child(4) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .section-title::before {
+            display: none;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .case-study {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 2rem 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .reflection {
+            font-size: 14px;
+            color: var(--text-light);
+            padding: 16px;
+            border-radius: 8px;
+            background: linear-gradient(to right, var(--bg-light), var(--white));
+        }
+
+        .practice-tips {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .practice-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .learn-more {
+            width: 120px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 15px auto;
+            transition: var(--transition);
+        }
+
+        .learn-more:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .learn-more:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .habit-container {
+                padding: 1.5rem;
+            }
+
+            .key-points {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .habit-container {
+                padding: 1rem;
+            }
+
+            .habit-title {
+                font-size: 24px;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+                font-size: 14px;
+            }
+
+            .case-study,
+            .reflection,
+            .practice-tips {
+                font-size: 12px;
+            }
+
+            .learn-more {
+                height: 48px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-title">高效能人士的七个习惯</a>
+        <div class="nav-menu">
+            <a href="habit1.html" class="nav-link">积极主动</a>
+            <a href="habit2.html" class="nav-link">以终为始</a>
+            <a href="habit3.html" class="nav-link">要事第一</a>
+            <a href="habit4.html" class="nav-link">双赢思维</a>
+            <a href="habit5.html" class="nav-link">知彼解己</a>
+            <a href="habit6.html" class="nav-link">协作增效</a>
+            <a href="habit7.html" class="nav-link active">不断更新</a>
+        </div>
+    </nav>
+
+    <div class="habit-container">
+        <div class="habit-header">
+            <h1 class="habit-title">不断更新</h1>
+            <p class="habit-subtitle">不断更新是保持个人持续成长和发展的关键习惯。它强调在身体、心智、社交情感和精神等多个维度上持续投资自己，保持平衡的自我提升。通过定期的自我反思和更新，我们能够保持活力，应对变化，实现持续的个人成长和突破。</p>
+        </div>
+
+        <!-- 核心要点 -->
+        <section class="content-section">
+            <h2 class="section-title">核心要点</h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-balance-scale"></i>
+                        全面平衡
+                    </h3>
+                    <p>在身体、心智、社交情感和精神四个维度上保持平衡发展，实现整体提升。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-arrows-rotate"></i>
+                        持续学习
+                    </h3>
+                    <p>保持开放和好奇的心态，持续学习新知识，适应环境变化，突破自我限制。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-chart-line"></i>
+                        螺旋上升
+                    </h3>
+                    <p>通过不断的实践、反思和改进，在更高层次上实现个人成长和突破。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 案例研究 -->
+        <section class="content-section">
+            <h2 class="section-title">案例研究</h2>
+            <div class="case-study">
+                <h3 class="case-study-title">终身学习者的蜕变</h3>
+                <p>一位50岁的企业高管意识到自己需要在数字化转型浪潮中保持竞争力。他制定了全面的更新计划：每天坚持运动保持体能，参加在线课程学习新技术，通过读书会拓展思维，同时保持冥想习惯平衡心灵。</p>
+                <p>两年后的成果：不仅成功带领团队完成数字化转型，自己的生活质量和工作表现都达到了新的高度。这个案例展示了如何通过持续的自我更新，在人生的不同阶段保持活力和竞争力。</p>
+            </div>
+        </section>
+
+        <!-- 反思总结 -->
+        <section class="content-section">
+            <h2 class="section-title">反思总结</h2>
+            <div class="reflection">
+                <p class="reflection-question">1. 你在身体、心智、社交情感和精神这四个维度上的发展是否平衡？哪些方面需要加强？</p>
+                <p class="reflection-question">2. 面对快速变化的环境，你如何保持自己的学习能力和适应能力？</p>
+                <p class="reflection-question">3. 你是否有定期反思和调整的习惯？这些习惯带来了哪些改变？</p>
+            </div>
+        </section>
+
+        <!-- 实践建议 -->
+        <section class="content-section">
+            <h2 class="section-title">实践建议</h2>
+            <ul class="practice-tips">
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>周期评估：</strong>
+                        定期评估四个维度的发展状况，制定具体的改进计划和目标。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>建立仪式：</strong>
+                        培养固定的学习、运动、冥想等更新仪式，形成可持续的生活方式。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>寻求反馈：</strong>
+                        主动向他人寻求反馈，了解自己的盲点，持续调整和改进。
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <button class="learn-more" onclick="window.location.href='index.html'">返回首页</button>
+    </div>
+</body>
+</html> 

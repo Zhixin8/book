@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>要事第一 - 高效能人士的七个习惯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 复用habit1.html的样式 */
+        :root {
+            --primary-color: #4A90E2;
+            --primary-dark: #357ABD;
+            --text-dark: #444444;
+            --text-light: #666666;
+            --bg-light: #F5F7FA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 8px rgba(0,0,0,0.05);
+            --shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* 复用habit1.html的所有样式 */
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .habit-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .habit-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .habit-title {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin: 0 0 1.5rem;
+        }
+
+        .habit-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .content-section:nth-child(2) { animation-delay: 0.2s; }
+        .content-section:nth-child(3) { animation-delay: 0.4s; }
+        .content-section:nth-child(4) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .section-title::before {
+            display: none;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .case-study {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 2rem 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .reflection {
+            font-size: 14px;
+            color: var(--text-light);
+            padding: 16px;
+            border-radius: 8px;
+            background: linear-gradient(to right, var(--bg-light), var(--white));
+        }
+
+        .practice-tips {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .practice-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .learn-more {
+            width: 120px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 15px auto;
+            transition: var(--transition);
+        }
+
+        .learn-more:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .learn-more:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .habit-container {
+                padding: 1.5rem;
+            }
+
+            .key-points {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .habit-container {
+                padding: 1rem;
+            }
+
+            .habit-title {
+                font-size: 24px;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+                font-size: 14px;
+            }
+
+            .case-study,
+            .reflection,
+            .practice-tips {
+                font-size: 12px;
+            }
+
+            .learn-more {
+                height: 48px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-title">高效能人士的七个习惯</a>
+        <div class="nav-menu">
+            <a href="habit1.html" class="nav-link">积极主动</a>
+            <a href="habit2.html" class="nav-link">以终为始</a>
+            <a href="habit3.html" class="nav-link active">要事第一</a>
+            <a href="habit4.html" class="nav-link">双赢思维</a>
+            <a href="habit5.html" class="nav-link">知彼解己</a>
+            <a href="habit6.html" class="nav-link">协作增效</a>
+            <a href="habit7.html" class="nav-link">不断更新</a>
+        </div>
+    </nav>
+
+    <div class="habit-container">
+        <div class="habit-header">
+            <h1 class="habit-title">要事第一</h1>
+            <p class="habit-subtitle">要事第一是时间管理和生活管理的核心原则，它强调将时间和精力投入到真正重要的事情上。这不仅是关于时间的安排，更是关于优先级的选择。通过区分重要与紧急，专注于对生活真正有意义的活动，我们能够在繁忙的日常中保持对重要目标的持续推进，避免被紧急但不重要的事务所困扰。这种方法帮助我们在工作与生活之间取得平衡，实现真正的高效能。</p>
+        </div>
+
+        <!-- 核心要点 -->
+        <section class="content-section">
+            <h2 class="section-title">核心要点</h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-clock"></i>
+                        时间四象限
+                    </h3>
+                    <p>学会区分事务的重要性和紧急性，将重点放在"重要但不紧急"的第二象限活动上。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-tasks"></i>
+                        优先级管理
+                    </h3>
+                    <p>建立清晰的优先级系统，确保重要的事情得到优先处理，而不是被紧急事务牵着走。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-balance-scale"></i>
+                        平衡的艺术
+                    </h3>
+                    <p>在工作、家庭、健康和个人发展等各个领域之间取得平衡，确保生活的可持续发展。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 案例研究 -->
+        <section class="content-section">
+            <h2 class="section-title">案例研究</h2>
+            <div class="case-study">
+                <h3 class="case-study-title">一位企业高管的时间管理革命</h3>
+                <p>张女士是一家科技公司的高管，每天都面临着大量的会议、邮件和紧急事务。通过实施"要事第一"原则，她开始每周预留固定时间进行战略思考和团队培养，同时设定"不被打扰"的专注时间。</p>
+                <p>这个改变带来的结果是：团队的自主性提高了，紧急事务减少了，而公司的长期项目都取得了显著进展。这个案例展示了如何通过优先级管理来提升工作质量和生活品质。</p>
+            </div>
+        </section>
+
+        <!-- 反思总结 -->
+        <section class="content-section">
+            <h2 class="section-title">反思总结</h2>
+            <div class="reflection">
+                <p class="reflection-question">1. 你的时间主要花在哪个象限的活动上？这种分配是否符合你的人生目标？</p>
+                <p class="reflection-question">2. 在处理日常事务时，你是如何确定优先级的？有什么可以改进的地方？</p>
+                <p class="reflection-question">3. 你是否经常因为紧急事务而牺牲了重要但不紧急的事情？如何改变这种状况？</p>
+            </div>
+        </section>
+
+        <!-- 实践建议 -->
+        <section class="content-section">
+            <h2 class="section-title">实践建议</h2>
+            <ul class="practice-tips">
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>时间审计：</strong>
+                        记录一周的时间使用情况，分析各类活动所占比例，找出时间管理的改进空间。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>每周计划：</strong>
+                        养成每周日做下周计划的习惯，优先安排重要但不紧急的事项。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>专注时段：</strong>
+                        设定每天的"黄金时间"，专注于最重要的工作，避免干扰。
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <button class="learn-more" onclick="window.location.href='index.html'">返回首页</button>
+    </div>
+</body>
+</html> 

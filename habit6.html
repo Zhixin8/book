@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>协作增效 - 高效能人士的七个习惯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 复用habit1.html的样式 */
+        :root {
+            --primary-color: #4A90E2;
+            --primary-dark: #357ABD;
+            --text-dark: #444444;
+            --text-light: #666666;
+            --bg-light: #F5F7FA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 8px rgba(0,0,0,0.05);
+            --shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* 复用habit1.html的所有样式 */
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .habit-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .habit-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .habit-title {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin: 0 0 1.5rem;
+        }
+
+        .habit-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .content-section:nth-child(2) { animation-delay: 0.2s; }
+        .content-section:nth-child(3) { animation-delay: 0.4s; }
+        .content-section:nth-child(4) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .section-title::before {
+            display: none;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .case-study {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 2rem 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .reflection {
+            font-size: 14px;
+            color: var(--text-light);
+            padding: 16px;
+            border-radius: 8px;
+            background: linear-gradient(to right, var(--bg-light), var(--white));
+        }
+
+        .practice-tips {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .practice-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .learn-more {
+            width: 120px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 15px auto;
+            transition: var(--transition);
+        }
+
+        .learn-more:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .learn-more:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .habit-container {
+                padding: 1.5rem;
+            }
+
+            .key-points {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .habit-container {
+                padding: 1rem;
+            }
+
+            .habit-title {
+                font-size: 24px;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+                font-size: 14px;
+            }
+
+            .case-study,
+            .reflection,
+            .practice-tips {
+                font-size: 12px;
+            }
+
+            .learn-more {
+                height: 48px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-title">高效能人士的七个习惯</a>
+        <div class="nav-menu">
+            <a href="habit1.html" class="nav-link">积极主动</a>
+            <a href="habit2.html" class="nav-link">以终为始</a>
+            <a href="habit3.html" class="nav-link">要事第一</a>
+            <a href="habit4.html" class="nav-link">双赢思维</a>
+            <a href="habit5.html" class="nav-link">知彼解己</a>
+            <a href="habit6.html" class="nav-link active">协作增效</a>
+            <a href="habit7.html" class="nav-link">不断更新</a>
+        </div>
+    </nav>
+
+    <div class="habit-container">
+        <div class="habit-header">
+            <h1 class="habit-title">协作增效</h1>
+            <p class="habit-subtitle">协作增效强调通过有效的团队合作创造出超越个人能力总和的成果。这种习惯基于对人性的深刻理解，认识到每个人都具有独特的才能和视角。通过建立开放、信任的团队氛围，激发创造性思维，我们能够实现"1+1>2"的协同效应。</p>
+        </div>
+
+        <!-- 核心要点 -->
+        <section class="content-section">
+            <h2 class="section-title">核心要点</h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-users-gear"></i>
+                        协同创新
+                    </h3>
+                    <p>整合不同观点和专长，创造出超越个人能力总和的创新解决方案。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-arrows-spin"></i>
+                        互补优势
+                    </h3>
+                    <p>识别和发挥团队成员的互补优势，让每个人都能在最适合的位置发光发热。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-people-arrows"></i>
+                        开放共享
+                    </h3>
+                    <p>建立开放、信任的团队氛围，促进知识和经验的自由流动与共享。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 案例研究 -->
+        <section class="content-section">
+            <h2 class="section-title">案例研究</h2>
+            <div class="case-study">
+                <h3 class="case-study-title">跨部门创新项目</h3>
+                <p>一家科技公司面临产品创新的瓶颈。通过组建跨部门团队，将技术、设计、市场等不同背景的专家聚在一起。团队采用开放式创新方法，每个成员都能自由表达想法，并在彼此的观点基础上不断改进。</p>
+                <p>最终成果：团队不仅突破了技术难关，还创造出了超出预期的创新产品，为公司开辟了新的市场空间。这个案例展示了协作增效如何将不同专长转化为创新动力。</p>
+            </div>
+        </section>
+
+        <!-- 反思总结 -->
+        <section class="content-section">
+            <h2 class="section-title">反思总结</h2>
+            <div class="reflection">
+                <p class="reflection-question">1. 在你参与的团队中，是否充分发挥了每个成员的优势？如何做得更好？</p>
+                <p class="reflection-question">2. 你在团队协作中遇到过哪些障碍？如何克服这些障碍？</p>
+                <p class="reflection-question">3. 你如何评估一个团队的协同效应？有哪些具体的衡量标准？</p>
+            </div>
+        </section>
+
+        <!-- 实践建议 -->
+        <section class="content-section">
+            <h2 class="section-title">实践建议</h2>
+            <ul class="practice-tips">
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>角色轮换：</strong>
+                        定期让团队成员尝试不同的角色，增进相互理解和跨领域合作能力。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>创意工作坊：</strong>
+                        组织定期的创意工作坊，让团队成员在轻松的氛围中碰撞思维火花。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>成果共享：</strong>
+                        建立团队知识库，定期分享成功经验和教训，促进集体学习和成长。
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <button class="learn-more" onclick="window.location.href='index.html'">返回首页</button>
+    </div>
+</body>
+</html> 

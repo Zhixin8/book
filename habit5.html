@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知彼解己 - 高效能人士的七个习惯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 复用habit1.html的样式 */
+        :root {
+            --primary-color: #4A90E2;
+            --primary-dark: #357ABD;
+            --text-dark: #444444;
+            --text-light: #666666;
+            --bg-light: #F5F7FA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 8px rgba(0,0,0,0.05);
+            --shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* 复用habit1.html的所有样式 */
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .habit-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .habit-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .habit-title {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin: 0 0 1.5rem;
+        }
+
+        .habit-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .content-section:nth-child(2) { animation-delay: 0.2s; }
+        .content-section:nth-child(3) { animation-delay: 0.4s; }
+        .content-section:nth-child(4) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .section-title::before {
+            display: none;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .case-study {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 2rem 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .reflection {
+            font-size: 14px;
+            color: var(--text-light);
+            padding: 16px;
+            border-radius: 8px;
+            background: linear-gradient(to right, var(--bg-light), var(--white));
+        }
+
+        .practice-tips {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .practice-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .learn-more {
+            width: 120px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 15px auto;
+            transition: var(--transition);
+        }
+
+        .learn-more:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .learn-more:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .habit-container {
+                padding: 1.5rem;
+            }
+
+            .key-points {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .habit-container {
+                padding: 1rem;
+            }
+
+            .habit-title {
+                font-size: 24px;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+                font-size: 14px;
+            }
+
+            .case-study,
+            .reflection,
+            .practice-tips {
+                font-size: 12px;
+            }
+
+            .learn-more {
+                height: 48px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-title">高效能人士的七个习惯</a>
+        <div class="nav-menu">
+            <a href="habit1.html" class="nav-link">积极主动</a>
+            <a href="habit2.html" class="nav-link">以终为始</a>
+            <a href="habit3.html" class="nav-link">要事第一</a>
+            <a href="habit4.html" class="nav-link">双赢思维</a>
+            <a href="habit5.html" class="nav-link active">知彼解己</a>
+            <a href="habit6.html" class="nav-link">协作增效</a>
+            <a href="habit7.html" class="nav-link">不断更新</a>
+        </div>
+    </nav>
+
+    <div class="habit-container">
+        <div class="habit-header">
+            <h1 class="habit-title">知彼解己</h1>
+            <p class="habit-subtitle">知彼解己是一种深层次的沟通艺术，它强调在理解他人之前，首先要理解自己。这种习惯要求我们放下预判和偏见，真诚地倾听他人，同时也要清晰地表达自己。通过培养同理心和有效的沟通技巧，我们能够建立更深厚的人际关系，化解冲突，创造真正的理解和共鸣。</p>
+        </div>
+
+        <!-- 核心要点 -->
+        <section class="content-section">
+            <h2 class="section-title">核心要点</h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-ear-listen"></i>
+                        同理心倾听
+                    </h3>
+                    <p>不仅要听对方说什么，更要理解他们为什么这样说，体会他们的情感和需求。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-comments"></i>
+                        有效表达
+                    </h3>
+                    <p>清晰、诚恳地表达自己的想法和感受，确保沟通的准确性和真实性。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-bridge"></i>
+                        搭建理解桥梁
+                    </h3>
+                    <p>通过积极的反馈和确认，确保双方达成真正的理解，而不是表面的认同。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 案例研究 -->
+        <section class="content-section">
+            <h2 class="section-title">案例研究</h2>
+            <div class="case-study">
+                <h3 class="case-study-title">跨代沟通的突破</h3>
+                <p>一位年轻的团队领导者在管理老员工时遇到了阻力。通过运用"知彼解己"的原则，她首先放下自己的判断，用心倾听老员工的顾虑和建议。在理解他们的经验和价值观后，她调整了沟通方式和管理策略。</p>
+                <p>这个改变带来的结果是：团队氛围明显改善，老员工的经验得到了充分发挥，新旧方法的结合产生了意想不到的创新效果。</p>
+            </div>
+        </section>
+
+        <!-- 反思总结 -->
+        <section class="content-section">
+            <h2 class="section-title">反思总结</h2>
+            <div class="reflection">
+                <p class="reflection-question">1. 在日常交谈中，你是否真正理解了对方的观点和感受？如何判断？</p>
+                <p class="reflection-question">2. 你在表达自己的想法时，是否经常被误解？原因可能是什么？</p>
+                <p class="reflection-question">3. 在最近的一次重要沟通中，你是如何确保双方达成真正的理解的？</p>
+            </div>
+        </section>
+
+        <!-- 实践建议 -->
+        <section class="content-section">
+            <h2 class="section-title">实践建议</h2>
+            <ul class="practice-tips">
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>倾听练习：</strong>
+                        在对话中尝试完全专注于对方的表达，不急于给出建议或判断。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>情感日记：</strong>
+                        记录自己的情感变化和沟通体验，提高自我认知和表达能力。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>反馈循环：</strong>
+                        在重要沟通后，主动寻求对方的反馈，确认理解的准确性。
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <button class="learn-more" onclick="window.location.href='index.html'">返回首页</button>
+    </div>
+</body>
+</html> 

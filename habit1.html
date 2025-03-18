@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>积极主动 - 高效能人士的七个习惯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --primary-dark: #357ABD;
+            --text-dark: #444444;
+            --text-light: #666666;
+            --bg-light: #F5F7FA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 8px rgba(0,0,0,0.05);
+            --shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .habit-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .habit-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .habit-title {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin: 0 0 1.5rem;
+        }
+
+        .habit-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .content-section:nth-child(2) { animation-delay: 0.2s; }
+        .content-section:nth-child(3) { animation-delay: 0.4s; }
+        .content-section:nth-child(4) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .section-title::before {
+            display: none;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .case-study {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 2rem 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .reflection {
+            font-size: 14px;
+            color: var(--text-light);
+            padding: 16px;
+            border-radius: 8px;
+            background: linear-gradient(to right, var(--bg-light), var(--white));
+        }
+
+        .practice-tips {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .practice-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .learn-more {
+            width: 120px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 15px auto;
+            transition: var(--transition);
+        }
+
+        .learn-more:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .learn-more:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .habit-container {
+                padding: 1.5rem;
+            }
+
+            .key-points {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .habit-container {
+                padding: 1rem;
+            }
+
+            .habit-title {
+                font-size: 24px;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+                font-size: 14px;
+            }
+
+            .case-study,
+            .reflection,
+            .practice-tips {
+                font-size: 12px;
+            }
+
+            .learn-more {
+                height: 48px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-title">高效能人士的七个习惯</a>
+        <div class="nav-menu">
+            <a href="habit1.html" class="nav-link active">积极主动</a>
+            <a href="habit2.html" class="nav-link">以终为始</a>
+            <a href="habit3.html" class="nav-link">要事第一</a>
+            <a href="habit4.html" class="nav-link">双赢思维</a>
+            <a href="habit5.html" class="nav-link">知彼解己</a>
+            <a href="habit6.html" class="nav-link">协作增效</a>
+            <a href="habit7.html" class="nav-link">不断更新</a>
+        </div>
+    </nav>
+
+    <div class="habit-container">
+        <div class="habit-header">
+            <h1 class="habit-title">积极主动</h1>
+            <p class="habit-subtitle">掌控人生，为自己的选择负责。积极主动不仅仅是采取行动，更是对自己的生活负责，认识到我们的行为选择取决于我们的决定，而不是环境。这种态度让我们能够跳出被动反应的模式，主动创造改变，在任何情况下都保持选择的自由。通过培养积极主动的习惯，我们能够突破限制，创造更多可能，成为生命的主人而不是环境的产物。</p>
+        </div>
+
+        <!-- 核心要点 -->
+        <section class="content-section">
+            <h2 class="section-title">核心要点</h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-arrow-right"></i>
+                        刺激与回应之间
+                    </h3>
+                    <p>在刺激和回应之间，我们有选择的自由。选择如何回应是我们的责任。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-circle"></i>
+                        关注影响圈
+                    </h3>
+                    <p>将精力集中在我们能够影响的事情上，而不是抱怨无法改变的环境。</p>
+                </div>
+                <div class="key-point">
+                    <h3 class="key-point-title">
+                        <i class="fas fa-comments"></i>
+                        积极的语言
+                    </h3>
+                    <p>使用"我要"、"我能"等积极的语言，而不是"我必须"、"我不能"等消极表达。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 案例研究 -->
+        <section class="content-section">
+            <h2 class="section-title">案例研究</h2>
+            <div class="case-study">
+                <h3 class="case-study-title">维克多·弗兰克尔的故事</h3>
+                <p>在纳粹集中营中，精神病学家维克多·弗兰克尔发现，即使在最严酷的环境下，人们仍然可以选择自己的态度。他选择在苦难中保持尊严，并帮助他人找到生命的意义。</p>
+                <p>这个故事展示了：即使在最困难的环境中，我们仍然可以选择如何回应。</p>
+            </div>
+        </section>
+
+        <!-- 反思总结 -->
+        <section class="content-section">
+            <h2 class="section-title">反思总结</h2>
+            <div class="reflection">
+                <p class="reflection-question">1. 最近遇到的挑战中，你是如何选择回应的？</p>
+                <p class="reflection-question">2. 你的影响圈和关注圈之间有什么差异？</p>
+                <p class="reflection-question">3. 如何在日常生活中更多地运用积极主动的原则？</p>
+            </div>
+        </section>
+
+        <!-- 实践建议 -->
+        <section class="content-section">
+            <h2 class="section-title">实践建议</h2>
+            <ul class="practice-tips">
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>30天语言挑战：</strong>
+                        记录并改变消极的语言表达，用积极的方式重新表述。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>影响圈分析：</strong>
+                        列出你关注的事情，区分哪些在影响圈内，哪些在影响圈外。
+                    </div>
+                </li>
+                <li class="practice-tip">
+                    <i class="fas fa-check"></i>
+                    <div>
+                        <strong>每日承诺：</strong>
+                        每天做一件积极主动的事，并记录下来。
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <button class="learn-more" onclick="window.location.href='index.html'">返回首页</button>
+    </div>
+</body>
+</html> 
